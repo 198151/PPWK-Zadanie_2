@@ -3,41 +3,29 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>ZADANIE_2</title>
-<script>
-function MailFunction(){
-  var txt = document.getElementById("mail").value
-}
-function NipFunction(){
-  var txt = document.getElementById("nip").value
-}
-function PeselFunction(){
-  var txt = document.getElementById("pesel").value
-}
-function RegonFunction(){
-  var txt = document.getElementById("regon").value
-}
-function KodFunction(){
-  var txt = document.getElementById("kod").value
-}
-</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 
 <h1>Zadanie_2</h1>
-<input type="MAIL" id="mail" placeholder="MAIL">
-<input type="button" value="OK" onclick="MailFunction()">
+<input type="mail" id="mail" placeholder="MAIL">
 <br></br>
-<input type="NIP" id="nip" placeholder="NIP">
-<input type="button" value="OK" onclick="NipFunction()">
+<input type="nip" id="nip" placeholder="NIP">
 <br></br>
-<input type="PESEL" id="pesel" placeholder="PESEL">
-<input type="button" value="OK" onclick="PeselFunction()">
+<input type="pesel" id="pesel" placeholder="PESEL">
 <br></br>
-<input type="REGON" id="regon" placeholder="REGON">
-<input type="button" value="OK" onclick="RegonFunction()">
+<input type="regon" id="regon" placeholder="REGON">
 <br></br>
-<input type="KOD" id="kod" placeholder="KOD">
-<input type="button" value="OK" onclick="KodFunction()">
+<input type="kod" id="kod" placeholder="KOD">
+<br></br>
+<input type="button" value="Wyslij!" onclick="sendData()">
 
+<script>
+function sendData(){
+	$('input').each(function(){
+		var data = {name $(this).attr('name'), value : $(this).val()};
+	});
+}
+</script>
 </body>
 </html>
