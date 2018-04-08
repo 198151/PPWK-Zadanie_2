@@ -8,35 +8,42 @@
 <body>
 
 <h1>Zadanie_2</h1>
-<input type="mail" id="mail" placeholder="MAIL">
+<input name="mail" id="mail" placeholder="MAIL">
 <br></br>
-<input type="nip" id="nip" placeholder="NIP">
+<input name="nip" id="nip" placeholder="NIP">
 <br></br>
-<input type="pesel" id="pesel" placeholder="PESEL">
+<input name="pesel" id="pesel" placeholder="PESEL">
 <br></br>
-<input type="regon" id="regon" placeholder="REGON">
+<input name="regon" id="regon" placeholder="REGON">
 <br></br>
-<input type="kod_pocztowy" id="kod_pocztowy" placeholder="KOD POCZTOWY">
+<input name="kod_pocztowy" id="kod_pocztowy" placeholder="KOD POCZTOWY">
 <br></br>
-<input type="button" value="Wyslij!" onclick="sendData()">
+<button onclick="sendData()">Wyslij!</button>
 
 <script>
 function sendData(){
 	$('input').each(function(){
-		var data = {name $(this).attr('name'), value : $(this).val()};
-		$.ajax ({
-			method : "POST",
-			url : "routes/" + $(this).attr('name') + "/",
-			success : function(receivedData) {
-				for(key in receivedData) {
-					if(response[key] == 0) {
-						var alertMsg = "Bledne dane w formularzach : \n" + key;
-					}
-				}
-			}
-		});
-	});
-}
-</script>
+	  var dane ={name : $(this).attr('name'), value : $(this).val()};
+	  var msg = "Blad w formularzach : \n"
+          $.ajaxSetup({
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+          });
+          $.ajax({
+            method: "POST",
+            url: "routes/" + $(this).attr('name') + "/",
+            dataType:"json",
+            data: dane,
+            success: function(received) {
+              for(key in received) {
+                if (received[key] == 0) {
+			msg += key + "\n";
+			console.log(msg);
+                }
+              }
+            },
+          });
+        });
+      };
+    </script>
 </body>
 </html>
