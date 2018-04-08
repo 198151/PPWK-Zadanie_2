@@ -22,12 +22,16 @@
 
 <script>
 function sendData(){
+
 	$('input').each(function(){
+
 	  var dane ={name : $(this).attr('name'), value : $(this).val()};
 	  var msg = "Blad w formularzach : \n"
+
           $.ajaxSetup({
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
           });
+
           $.ajax({
             method: "POST",
             url: "routes/" + $(this).attr('name') + "/",
