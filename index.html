@@ -16,7 +16,7 @@
 <br></br>
 <input type="regon" id="regon" placeholder="REGON">
 <br></br>
-<input type="kod" id="kod" placeholder="KOD">
+<input type="kod_pocztowy" id="kod_pocztowy" placeholder="KOD POCZTOWY">
 <br></br>
 <input type="button" value="Wyslij!" onclick="sendData()">
 
@@ -24,6 +24,17 @@
 function sendData(){
 	$('input').each(function(){
 		var data = {name $(this).attr('name'), value : $(this).val()};
+		$.ajax ({
+			method : "POST",
+			url : "routes/" + $(this).attr('name') + "/",
+			success : function(receivedData) {
+				for(key in receivedData) {
+					if(response[key] == 0) {
+						var alertMsg = "Bledne dane w formularzach : \n" + key;
+					}
+				}
+			}
+		});
 	});
 }
 </script>
