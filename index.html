@@ -8,25 +8,28 @@
 <body>
 
 <h1>Zadanie_2</h1>
-<input name="mail" id="mail" placeholder="MAIL">
-<br></br>
-<input name="nip" id="nip" placeholder="NIP">
-<br></br>
-<input name="pesel" id="pesel" placeholder="PESEL">
-<br></br>
-<input name="regon" id="regon" placeholder="REGON">
-<br></br>
-<input name="kod_pocztowy" id="kod_pocztowy" placeholder="KOD POCZTOWY">
-<br></br>
-<button onclick="sendData()">Wyslij!</button>
-
+<div id="1">
+	<input name="mail" id="mail" placeholder="MAIL">
+	<br></br>
+	<input name="nip" id="nip" placeholder="NIP">
+	<br></br>
+	<input name="pesel" id="pesel" placeholder="PESEL">
+	<br></br>
+	<input name="regon" id="regon" placeholder="REGON">
+	<br></br>
+	<input name="kod_pocztowy" id="kod_pocztowy" placeholder="KOD POCZTOWY">
+	<br></br>
+	<button onclick="sendData()">Wyslij!</button>
+	<br></br>
+</div>
 <script>
 function sendData(){
 
+	$('#1').append('<font color="red">Blad w formularzu : </font><br></br>');
 	$('input').each(function(){
 
 	  var dane ={name : $(this).attr('name'), value : $(this).val()};
-	  var msg = "Blad w formularzach : \n"
+	  var msg = "";
 
           $.ajaxSetup({
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
@@ -40,9 +43,9 @@ function sendData(){
             success: function(received) {
               for(key in received) {
                 if (received[key] == 0) {
-			msg += key + "\n";
-			console.log(msg);
-                }
+			msg+=key + "<br></br>";
+			$('#1').append('<font color="red">'+ msg +'</font>');		
+		}
               }
             },
           });
