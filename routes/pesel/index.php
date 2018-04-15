@@ -1,10 +1,12 @@
 <?php
 $result = [$_POST['name'] => 1];
-if (strlen($_POST['value']) < 1 || !validatepesel($_POST['value'])) {
-    $result = [$_POST['name'] => "Pole " . $_POST['name'] . " niepoprawnie wypełnione."];
-}
+	if (strlen($_POST['value']) < 1 || !peselValidator($_POST['value'])) {
+   	 $result = [$_POST['name'] => 0];
+	}
 echo json_encode($result);
-function validatepesel($pesel) {
+
+
+function peselValidator($pesel) {
     $reg = '/^[0-9]{11}$/';
     if(preg_match($reg, $pesel)==false)
         return false;

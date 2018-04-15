@@ -1,10 +1,11 @@
 <?php
 $result = [$_POST['name'] => 1];
-if (strlen($_POST['value']) < 1 || !validateregon9($_POST['value'])) {
-    $result = [$_POST['name'] => "Pole " . $_POST['name'] . " niepoprawnie wypełnione."];
-}
+	if (strlen($_POST['value']) < 1 || !regonValidator($_POST['value'])) {
+  	  $result = [$_POST['name'] => 0];
+	}
 echo json_encode($result);
-function validateregon9($regon) {
+
+function regonValidator($regon) {
     $reg = '/^[0-9]{9}$/';
     if(preg_match($reg, $regon)==false)
         return false;
